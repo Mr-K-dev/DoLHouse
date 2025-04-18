@@ -32,7 +32,7 @@
 				{
 					"fileName": "time.js",
 					"from": "if (V.locker_suspicion > 0) statChange.lockerSuspicion(-1);",
-					"to": "if (V.locker_suspicion > 0) statChange.lockerSuspicion(-1); if (V.DoLHouse.Brothel.SellTimer !== undefined && V.undergroundbrothel.active == true) {V.DoLHouse.Brothel.SellTimer--;}"
+					"to": "if (V.locker_suspicion > 0) statChange.lockerSuspicion(-1); if (V.DoLHouse !== undefined && V.undergroundbrothel.active == true) {V.DoLHouse.Brothel.SellTimer--;}"
 				}
 			]
 		}
