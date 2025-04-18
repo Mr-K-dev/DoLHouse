@@ -1,0 +1,247 @@
+:: K Penis Comment Random Flavour Text Widgets [widget]
+/*
+*	Types of Remarks
+*	+	description		|	its as big/small as [thing]
+*	+	surprise		|	woah its so big/small
+*	+	question		|	how does it...
+*	+	praise			|	aw its cute /pos
+*	+	degradation		|	aw its cute /tease
+*	+	insult			|	its pathetic
+*
+*/
+<<widget "k_loadpenisremark">>
+	<<set _k_mappedpenisremarks to {
+		"big": {
+			"description": [
+				"I've seen ponies smaller than that,",
+				"that is ginormous,",
+				"that's massive,",
+				"it's so big,"
+			],
+			"surprise": [
+				"how the hell are you that hung?",
+				"oh my god, it's ginormous,",
+				"I've never in my life seen a <<k_penis>> that big,",
+				"oh wow, that is huge,",
+				"Jesus fucking Christ that's big,",
+				"wow, you're hung like a horse,",
+				"it's so big!"
+			],
+			"question": [
+				"can that massive thing even fit inside anyone?",
+				"how the hell do you even get something like that inside you?",
+				"can you even get hard without passing out with a <<k_penis>> that big?"
+			],
+			"praise": [
+				"giddyup horsey,",
+				"like a fucking horse,",
+				"you're so big, you might break me,",
+				"you're huge,",
+				"I bet bigger tastes better,"
+			],
+			"degradation": [
+				"(There's a lack of flavor text for this one...),"
+			],
+			"insult": [
+				"(There's a lack of flavor text for this one...),"
+			]
+		},
+		"normal": {
+			"description": [
+				"I prefer bigger ones, myself,",
+				"not the biggest I've ever seen,",
+				"I'm glad it's not too small,",
+				"it's just the right size to suck,",
+				"such a perfect size,"
+			],
+			"surprise": [
+				"(There's a lack of flavor text for this one...),"
+			],
+			"question": [
+				"(There's a lack of flavor text for this one...),"
+			],
+			"praise": [
+				"that cock is perfect decoration,",
+				"I want a picture of that penis,",
+				"that <<k_penis>> is adorable,",
+				"that <<k_penis>> looks tasty,",
+				"I've never seen a <<k_penis>> so cute,"
+			],
+			"degradation": [
+				"(There's a lack of flavor text for this one...),"
+			],
+			"insult": [
+				"(There's a lack of flavor text for this one...),"
+			]
+		},
+		"small": {
+			"description": [
+				"it's tiny,",
+				"it's smaller than my finger,",
+				"it's so small,",
+				"I've seen flash drives bigger than that,",
+				"I've seen batteries bigger than that,"
+			],
+			"surprise": [
+				"how the hell are you that small?",
+				"I thought <<pher>> <<k_penis>> would be bigger,",
+				"oh my god, it's tiny,",
+				"oh my god, it's smaller than my finger,",
+				"<<pShes>> so small!"
+			],
+			"question": [
+				"well you're not much good down there, are you?",
+				"who exactly are you planning on fucking with that tiny thing?"
+			],
+			"praise": [
+				"what a cute little <<k_penis>>,",
+				"what a cute little dicklet,",
+				"Such a small and cute <<k_penis>>,",
+				"it's so small and cute,",
+				"what an adorable <<k_penis>>,"
+			],
+			"degradation": [
+				"what a pathetic little shrimp <<k_penis>>,",
+				"nice <<k_penis>>, loser,"
+			],
+			"insult": [
+				"a <<k_penis>> that small belongs in chastity, you're not going to be using it anyway,",
+				"oh my god, that little thing should be locked up,"
+			]
+		},
+		"micro": {
+			"description": [
+				"that looks more like a swollen clit than a <<k_penis>>,",
+				"I've seen coins bigger than that,",
+				"It's so cute and tiny,"
+			],
+			"surprise": [
+				"how the hell are you so tiny?",
+				"<<pShes>> so tiny!",
+				"it's so tiny!",
+				"oh my god, it's like an acorn,",
+				"I can't believe it's so tiny,"
+			],
+			"question": [
+				"how the hell are you so tiny?",
+				"<<pShes>> so tiny!",
+				"it's so tiny!",
+				"oh my god, it's like an acorn,",
+				"I can't believe it's so tiny,"
+			],
+			"praise": [
+				"(There's a lack of flavor text for this one...),"
+			],
+			"degradation": [
+				"no amount of oral is making up for that,",
+				"nice little <<k_penis>> you've got, try not to hurt anyone with it,",
+				"I've never seen such a pathetic <<k_penis>>,"
+			],
+			"insult": [
+				"there's no way a <<k_penis>> that small could ever please anyone,",
+				"Christ, I would be surprised if that could get past someone's lips,"
+			]
+		}
+	}>>
+<</widget>>
+
+<<widget "k_utility_penisargumentinmap">>
+	/*
+	*	_args[0]	-> dick size key
+	*	_args[1]	-> descriptor looking for
+	*/
+	
+	<<if Object.keys(_k_mappedpenisremarks[_args[0]]).includes(_args[1])>>
+		<<set _k_return to 1>>
+	<<else>>
+		<<set _k_return to 0>>
+	<</if>>
+<</widget>>
+
+<<widget "k_utility_mergepenisflavortext">>
+	/*
+	*	_args[0]	-> dick size key
+	*/
+
+	<<set _k_choices to [].concat(
+		_k_mappedpenisremarks[_args[0]]["description"],
+		_k_mappedpenisremarks[_args[0]]["surprise"],
+		_k_mappedpenisremarks[_args[0]]["question"],
+		_k_mappedpenisremarks[_args[0]]["praise"],
+		_k_mappedpenisremarks[_args[0]]["degradation"],
+		_k_mappedpenisremarks[_args[0]]["insult"]
+	)>>
+<</widget>>
+
+<<widget "k_generatepenisremark">>
+	/*
+	*	_args[0] 	-> type of remark	(string)
+	*	_args[1] 	-> capitalize		(boolean)
+	*/
+
+	<<k_loadpenisremark>>
+	
+	<<set _output_line to "">>
+	
+	<<if $player.penissize is 4>>
+		/* big pp */
+		<<k_utility_penisargumentinmap "big" _args[0]>>
+		
+		<<if _k_return eq 1>>
+			<<set _k_picked to _k_mappedpenisremarks["big"][_args[0]].random()>>
+			
+		<<else>>
+			<<k_utility_mergepenisflavortext "big">>
+			
+			<<set _k_picked to _k_choices.random()>>
+		<</if>>
+		
+		<<set _output_line to _k_picked>>
+
+	<<elseif $player.penissize <=1 and $player.penissize > -1>>
+		/* smol pp */
+		<<k_utility_penisargumentinmap "small" _args[0]>>
+		
+		<<if _k_return eq 1>>
+			<<set _k_picked to _k_mappedpenisremarks["small"][_args[0]].random()>>
+			
+		<<else>>
+			<<k_utility_mergepenisflavortext "small">>
+			
+			<<set _k_picked to _k_choices.random()>>
+		<</if>>
+		
+		<<set _output_line to _k_picked>>
+		
+	<<elseif $player.penissize lte -1>>
+		/* micro pp */
+		<<k_utility_penisargumentinmap "micro" _args[0]>>
+		<<if _k_return eq 1>>
+			<<set _k_picked to _k_mappedpenisremarks["micro"][_args[0]].random()>>
+			
+		<<else>>
+			<<k_utility_mergepenisflavortext "micro">>
+			
+			<<set _k_picked to _k_choices.random()>>
+		<</if>>
+		
+		<<set _output_line to _k_picked>>
+		
+	<<else>>
+		/* normal pp */
+		<<k_utility_penisargumentinmap "normal" _args[0]>>
+		<<if _k_return eq 1>>
+			<<set _k_picked to _k_mappedpenisremarks["normal"][_args[0]].random()>>
+			
+		<<else>>
+			<<k_utility_mergepenisflavortext "normal">>
+			
+			<<set _k_picked to _k_choices.random()>>
+		<</if>>
+		
+		<<set _output_line to _k_picked>>
+		
+	<</if>>
+	
+	<<print _output_line>>
+<</widget>>

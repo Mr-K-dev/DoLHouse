@@ -1,0 +1,14 @@
+:: Widget K Thesaurus [widget]
+/*
+*	word replacer for K's interactions.
+*/
+
+<<widget "k_penis">>
+	<<set _possibilities to [
+		"penis",
+		"dick",
+		"cock",
+		"willy"
+	]>>
+	<<print _possibilities.random()>>
+<</widget>>

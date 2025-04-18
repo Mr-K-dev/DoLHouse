@@ -1,0 +1,145 @@
+:: DoLHouse Slave Widgets [widget]
+
+<<widget "DoLHouseInitVars">>
+  <<if ndef $DoLHouse>>
+    <<set $DoLHouse to {
+      "Brothel": {
+        "SellTimer": 1,
+        "SellCounter": 0,
+        "SlaveTransportPhase": 1
+      },
+      "OwnerHouse": {
+        "Master": {
+			"Pronoun": "m",
+			"Traits": [],
+			"State": "home",
+			"Satisfaction": 0,
+			"Acceptance": 0
+        },
+		"House": {
+			"Location": "Commercial alleyways"
+		}
+      }
+    }>>
+  <<else>>
+    <<if ndef $DoLHouse.Brothel>>
+      <<set $DoLHouse.Brothel to {
+        "SellTimer": 1,
+        "SellCounter": 0,
+        "SlaveTransportPhase": 1
+      }>>
+    <</if>>
+    <<if ndef $DoLHouse.OwnerHouse>>
+      <<set $DoLHouse.OwnerHouse to {
+        "Master": {
+			"Pronoun": "m",
+			"Traits": [],
+			"State": "home",
+			"Satisfaction": 0,
+			"Acceptance": 0
+        },
+		"House": {
+			"Location": "Commercial alleyways"
+		}
+      }>>
+    <</if>>
+  <</if>>
+<</widget>>
+
+<<widget "DoLHouse_RegisterMasterInfo">>
+	/*
+	*	_args[0]	-> NPCList Slot
+	*/
+	
+	<<set $DoLHouse.OwnerHouse.Master.Pronoun to clone($NPCList[_args[0]-1].pronoun)>>
+	
+	<<set $DoLHouse.OwnerHouse.Master.Traits to clone($NPCList[_args[0]-1].traits)>>
+<</widget>>
+
+<<widget "DoLHouse_GenerateOwnershipData">>
+	/*
+	*	
+	*/
+	
+	<<if $DoLHouse.OwnerHouse.Master.Traits.includes("relaxed")>>
+		<<set $DoLHouse.OwnerHouse.House.Location to "Farm Road 1">>
+	
+	<<elseif $DoLHouse.OwnerHouse.Master.Traits.includes("sociable")>>
+		<<set $DoLHouse.OwnerHouse.House.Location to "Commercial alleyways">>
+	
+	<<elseif $DoLHouse.OwnerHouse.Master.Traits.includes("brooding")>>
+		<<set $DoLHouse.OwnerHouse.House.Location to "Residential alleyways">>
+		
+	<<elseif $DoLHouse.OwnerHouse.Master.Traits.includes("lecher")>>
+		<<set $DoLHouse.OwnerHouse.House.Location to "Industrial alleyways">>
+		
+	<</if>>
+<</widget>>
+
+<<widget "DoLHouse_Master">>
+	<<if $DoLHouse.OwnerHouse.Master.Pronoun is "m">>
+		Master
+	<<else>>
+		Mistress
+	<</if>>
+<</widget>>
+
+<<widget "DoLHouse_Acceptance">>
+	<<if $DoLHouse.OwnerHouse.Master.Acceptance gte 50>>
+		<<if _args[0] eq 0>>
+			your
+		<<else>>
+			Your
+		<</if>>
+		
+	<<else>>
+		<<if _args[0] eq 0>>
+			the
+		<<else>>
+			The
+		<</if>>
+	<</if>>
+<</widget>>
+
+<<widget "DoLHouse_VeryVagueLocation">>
+	<<switch $DoLHouse.OwnerHouse.House.Location>>
+		<<case "Residential alleyways">>
+			somewhere in town
+		<<case "Commercial alleyways">>
+			somewhere in town
+		<<case "Industrial alleyways">>
+			somewhere in town
+		<<default>>
+			somewhere outside town
+	<</switch>>
+<</widget>>
+
+<<widget "DoLHouse_VagueLocation">>
+	<<switch $DoLHouse.OwnerHouse.House.Location>>
+		<<case "Residential alleyways">>
+			somewhere in town where children live
+		<<case "Commercial alleyways">>
+			somewhere in town that is busy at night
+		<<case "Industrial alleyways">>
+			somewhere in town with heavy machinery
+		<<default>>
+			somewhere with lots of animals
+	<</switch>>
+<</widget>>
+
+<<widget "DoLHouse_QuickLocation">>
+	<<switch $DoLHouse.OwnerHouse.House.Location>>
+		<<case "Residential alleyways">>
+			somewhere in the residential alleyways
+		<<case "Commercial alleyways">>
+			somewhere in the commercial alleyways
+		<<case "Industrial alleyways">>
+			somewhere in the industrial alleyways
+		<<default>>
+			somewhere in the town outskirts
+	<</switch>>
+<</widget>>
+
+<<widget "DoLHouse_LocationGuess">>
+	<<DoLHouse_VagueLocation>>
+<</widget>>
