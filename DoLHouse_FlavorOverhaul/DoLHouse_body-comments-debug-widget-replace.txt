@@ -1,5 +1,0 @@
-<<if $debug is 1>>
-	<<link [[Mr. K's Debug Passage|K Body-Comments Debug]]>><</link>>
-	<br><br>
-<</if>>
-<<link [[Gameplay Settings|Settings]]>><<set $settingsExitPassage to "Bedroom">><</link>>
