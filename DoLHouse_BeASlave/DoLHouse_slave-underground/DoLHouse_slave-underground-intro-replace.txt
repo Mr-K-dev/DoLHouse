@@ -1,3 +1,0 @@
-<<DoLHouseInitVars>>
-
-<<set $undergroundbrothel to {

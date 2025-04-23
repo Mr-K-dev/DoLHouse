@@ -1,1 +1,0 @@
-<<set $danger to random(1, 100)>>

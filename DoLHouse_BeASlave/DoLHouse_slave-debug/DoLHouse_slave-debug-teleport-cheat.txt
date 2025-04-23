@@ -1,8 +1,0 @@
-<<if $debug is 1>>
-	<<DoLHouse_DebugTeleportToUnderground>>
-	<br>
-	<<DoLHouse_DebugSkipToOwnerIntro>>
-	<br><br>
-<</if>>
-
-<<link [[Gameplay Settings|Settings]]>><<set $settingsExitPassage to "Bedroom">><</link>>
