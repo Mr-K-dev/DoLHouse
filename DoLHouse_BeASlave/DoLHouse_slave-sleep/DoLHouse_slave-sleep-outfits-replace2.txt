@@ -1,0 +1,5 @@
+		<<case "DoLHouse Owner House Bed">>
+			<<set $_storeLocation to "DoLHouse Owner House Bed">>
+			<<set $wardrobe_location to "DoLHouseOwnerHouseBed">>
+
+		<<case "Pirate Bed Lie">>

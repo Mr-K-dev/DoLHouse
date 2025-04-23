@@ -1,0 +1,6 @@
+		<<case "DoLHouse Slave Owner House Bedroom">>
+			<<set _passage to "DoLHouse Owner House Bed">>
+			<<set $wardrobe_location to "DoLHouseOwnerHouseBed">>
+			<<set $storeLocation to "DoLHouse Owner House Bed">>
+		
+		<<case "Pirate Bed Lie">>

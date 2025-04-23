@@ -1,0 +1,77 @@
+:: DoLHouse Slave Tie Up Punish Finish
+
+<<effects>>
+<<if $enemyhealth lte 0>>
+	<<person1>><<person>> stumbles backwards, giving you a chance to escape.
+	<br><br>
+
+	<<link [[Make a run for it|DoLHouse Slave Owner House Escape]]>>
+		<<endcombat>>
+	<</link>>
+	
+<<elseif $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	
+	<br><br>
+	
+	<<DoLHouse_ChangeMasterSatisfaction 10>>
+	
+	<<if $DoLHouse.OwnerHouse.Master.Satisfaction gte 25>>
+		"Good <<girl>>. You may go."
+		<br>
+		<<person1>><<He>> goes back to what <<person1>><<he>> was doing, leaving you hurt on the floor.
+		
+		<span id="next">
+		<<link [[Next|DoLHouse Slave Owner House Main Room]]>>
+			<<endcombat>>
+		<</link>>
+		</span><<nexttext>>
+		
+	<<else>>
+		<<if $rightarm isnot "bound" or $leftarm isnot "bound">>
+			<<person1>><<person>> pins you down and binds your arms.
+			<<bind>>
+			<br>
+		<</if>>
+		<<person1>><<He>> drags you to the bedroom and throws you on to the floor. <<person1>><<He>> leaves the room, locking the door.
+		
+		<span id="next">
+		<<link [[Next|DoLHouse Slave Owner House Bedroom]]>>
+			<<endcombat>>
+		<</link>>
+		</span><<nexttext>>
+	<</if>>
+
+<<else>>
+	<<DoLHouse_ChangeMasterSatisfaction 1>>
+	
+	<<if $DoLHouse.OwnerHouse.Master.Satisfaction gte 25>>
+		"I think that's enough. I'll be keeping my eye on you."
+		<br>
+		<<person1>><<He>> goes back to what <<person1>><<he>> was doing, leaving you hurt on the floor.
+		
+		<span id="next">
+		<<link [[Next|DoLHouse Slave Owner House Main Room]]>>
+			<<endcombat>>
+		<</link>>
+		</span><<nexttext>>
+		
+	<<else>>
+		<<if $rightarm isnot "bound" or $leftarm isnot "bound">>
+			<<person1>><<person>> pins you down and binds your arms.
+			<<bind>>
+			<br>
+		<</if>>
+		<<person1>><<He>> drags you to the bedroom and throws you on to the floor. <<person1>><<He>> leaves the room, locking the door.
+		
+		<span id="next">
+		<<link [[Next|DoLHouse Slave Owner House Bedroom]]>>
+			<<endcombat>>
+		<</link>>
+		</span><<nexttext>>
+	<</if>>
+<</if>>
+
+<<if $DoLHouse.OwnerHouse.Master.State is "sex">>
+	<<set $DoLHouse.OwnerHouse.Master.State to "rest">>
+<</if>>

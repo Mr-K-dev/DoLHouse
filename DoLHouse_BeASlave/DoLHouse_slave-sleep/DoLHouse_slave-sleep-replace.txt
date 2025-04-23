@@ -1,0 +1,213 @@
+<<switch $location>>
+	<<case "DoLHouse_Slave_Owner_House">>
+		<<set _DoLHouseWakeEvent to "lucky">>
+		
+		<<switch $DoLHouse.OwnerHouse.Master.State>>
+			<<case "sleep">>
+				<<if $DoLHouse.OwnerHouse.Master.Satisfaction gte 50>>
+					<<set _DoLHouseRoll to random(1, $DoLHouse.OwnerHouse.Master.Satisfaction)>>
+					
+					<<set _DoLHouseBar1 to Math.round(50*Math.log($DoLHouse.OwnerHouse.Master.Satisfaction-5))>>
+					<<set _DoLHouseBar2 to Math.round(50*Math.log($DoLHouse.OwnerHouse.Master.Satisfaction-35))>>
+					<<set _DoLHouseBar3 to Math.round(50*Math.log($DoLHouse.OwnerHouse.Master.Satisfaction-60))>>
+					<<set _DoLHouseBar4 to Math.round(50*Math.log($DoLHouse.OwnerHouse.Master.Satisfaction-75))>>
+					<<set _DoLHouseBar5 to Math.round(50*Math.log($DoLHouse.OwnerHouse.Master.Satisfaction-85))>>
+					
+					<<if _DoLHouseRoll gte _DoLHouseBar1>>
+						<<set _DoLHouseWakeEvent to "noncon">>
+						<<set _sleepinterrupt to 1>>
+						
+					<<elseif _DoLHouseRoll gte _DoLHouseBar2>>
+						<<set _DoLHouseWakeEvent to "lucky">>
+						<<set _sleepinterrupt to 0>>
+						
+					<<elseif _DoLHouseRoll gte _DoLHouseBar3>>
+						<<set _DoLHouseWakeEvent to "noncon">>
+						<<set _sleepinterrupt to 1>>
+						
+					<<elseif _DoLHouseRoll gte _DoLHouseBar4>>
+						<<set _DoLHouseWakeEvent to "lucky">>
+						<<set _sleepinterrupt to 0>>
+						
+					<<elseif _DoLHouseRoll gte _DoLHouseBar5>>
+						<<set _DoLHouseWakeEvent to "con">>
+						<<set _sleepinterrupt to 1>>
+						
+					<<else>>
+						<<set _DoLHouseWakeEvent to "lucky">>
+						<<set _sleepinterrupt to 0>>
+						
+					<</if>>
+					
+				<<else>>
+					<<set _DoLHouseRoll to random(1, $DoLHouse.OwnerHouse.Master.Satisfaction+100)>>
+					
+					<<set _DoLHouseBar1 to Math.round(50*Math.log($DoLHouse.OwnerHouse.Master.Satisfaction-5))>>
+					<<set _DoLHouseBar2 to Math.round(50*Math.log($DoLHouse.OwnerHouse.Master.Satisfaction-35))>>
+					<<set _DoLHouseBar3 to Math.round(50*Math.log($DoLHouse.OwnerHouse.Master.Satisfaction-60))>>
+					<<set _DoLHouseBar4 to Math.round(50*Math.log($DoLHouse.OwnerHouse.Master.Satisfaction-145))>>
+					
+					<<if _DoLHouseRoll gte _DoLHouseBar1>>
+						<<set _DoLHouseWakeEvent to "punish">>
+						<<set _sleepinterrupt to 1>>
+						
+					<<elseif _DoLHouseRoll gte _DoLHouseBar2>>
+						<<set _DoLHouseWakeEvent to "noncon">>
+						<<set _sleepinterrupt to 1>>
+						
+					<<elseif _DoLHouseRoll gte _DoLHouseBar3>>
+						<<set _DoLHouseWakeEvent to "lucky">>
+						<<set _sleepinterrupt to 0>>
+						
+					<<elseif _DoLHouseRoll gte _DoLHouseBar4>>
+						<<set _DoLHouseWakeEvent to "noncon">>
+						<<set _sleepinterrupt to 1>>
+						
+					<<else>>
+						<<set _DoLHouseWakeEvent to "lucky">>
+						<<set _sleepinterrupt to 0>>
+						
+					<</if>>
+				<</if>>
+			
+			<<case "rest" "window">>
+				<<if $DoLHouse.OwnerHouse.Master.Satisfaction gte 50>>
+					<<set _DoLHouseRoll to random(1, $DoLHouse.OwnerHouse.Master.Satisfaction)>>
+					
+					<<set _DoLHouseBar1 to Math.round(50*Math.log($DoLHouse.OwnerHouse.Master.Satisfaction-5))>>
+					<<set _DoLHouseBar2 to Math.round(50*Math.log($DoLHouse.OwnerHouse.Master.Satisfaction-35))>>
+					<<set _DoLHouseBar3 to Math.round(50*Math.log($DoLHouse.OwnerHouse.Master.Satisfaction-60))>>
+					<<set _DoLHouseBar4 to Math.round(50*Math.log($DoLHouse.OwnerHouse.Master.Satisfaction-75))>>
+					<<set _DoLHouseBar5 to Math.round(50*Math.log($DoLHouse.OwnerHouse.Master.Satisfaction-85))>>
+					
+					<<if _DoLHouseRoll gte _DoLHouseBar1>>
+						<<set _DoLHouseWakeEvent to "noncon">>
+						<<set _sleepinterrupt to 1>>
+						
+					<<elseif _DoLHouseRoll gte _DoLHouseBar2>>
+						<<set _DoLHouseWakeEvent to "lucky">>
+						<<set _sleepinterrupt to 1>>
+						
+					<<elseif _DoLHouseRoll gte _DoLHouseBar3>>
+						<<set _DoLHouseWakeEvent to "con">>
+						<<set _sleepinterrupt to 1>>
+						
+					<<elseif _DoLHouseRoll gte _DoLHouseBar4>>
+						<<set _DoLHouseWakeEvent to "generic">>
+						<<set _sleepinterrupt to 1>>
+						
+					<<elseif _DoLHouseRoll gte _DoLHouseBar5>>
+						<<set _DoLHouseWakeEvent to "trait">>
+						<<set _sleepinterrupt to 1>>
+						
+					<<else>>
+						<<set _DoLHouseWakeEvent to "lucky">>
+						<<set _sleepinterrupt to 0>>
+						
+					<</if>>
+				
+				<<else>>
+					<<set _DoLHouseRoll to random(1, $DoLHouse.OwnerHouse.Master.Satisfaction+100)>>
+					
+					<<set _DoLHouseBar1 to Math.round(50*Math.log($DoLHouse.OwnerHouse.Master.Satisfaction-5))>>
+					<<set _DoLHouseBar2 to Math.round(50*Math.log($DoLHouse.OwnerHouse.Master.Satisfaction-35))>>
+					<<set _DoLHouseBar3 to Math.round(50*Math.log($DoLHouse.OwnerHouse.Master.Satisfaction-60))>>
+					<<set _DoLHouseBar4 to Math.round(50*Math.log($DoLHouse.OwnerHouse.Master.Satisfaction-145))>>
+					
+					<<if _DoLHouseRoll gte _DoLHouseBar1>>
+						<<set _DoLHouseWakeEvent to "punish">>
+						<<set _sleepinterrupt to 1>>
+						
+					<<elseif _DoLHouseRoll gte _DoLHouseBar2>>
+						<<set _DoLHouseWakeEvent to "noncon">>
+						<<set _sleepinterrupt to 1>>
+						
+					<<elseif _DoLHouseRoll gte _DoLHouseBar3>>
+						<<set _DoLHouseWakeEvent to "noncon">>
+						<<set _sleepinterrupt to 1>>
+						
+					<<elseif _DoLHouseRoll gte _DoLHouseBar4>>
+						<<set _DoLHouseWakeEvent to "lucky">>
+						<<set _sleepinterrupt to 1>>
+						
+					<<else>>
+						<<set _DoLHouseWakeEvent to "lucky">>
+						<<set _sleepinterrupt to 0>>
+						
+					<</if>>
+				<</if>>
+			
+			<<case "phone">>
+				/* Master is guaranteed sociable, and is more likely to do parties. */
+				
+				<<if $DoLHouse.OwnerHouse.Master.Satisfaction gte 50>>
+					<<set _DoLHouseRoll to random(1, $DoLHouse.OwnerHouse.Master.Satisfaction)>>
+					
+					<<set _DoLHouseBar1 to Math.round(50*Math.log($DoLHouse.OwnerHouse.Master.Satisfaction-5))>>
+					<<set _DoLHouseBar2 to Math.round(50*Math.log($DoLHouse.OwnerHouse.Master.Satisfaction-35))>>
+					<<set _DoLHouseBar3 to Math.round(50*Math.log($DoLHouse.OwnerHouse.Master.Satisfaction-60))>>
+					<<set _DoLHouseBar4 to Math.round(50*Math.log($DoLHouse.OwnerHouse.Master.Satisfaction-75))>>
+					<<set _DoLHouseBar5 to Math.round(50*Math.log($DoLHouse.OwnerHouse.Master.Satisfaction-85))>>
+			
+					<<if _DoLHouseRoll gte _DoLHouseBar1>>
+						<<set _DoLHouseWakeEvent to "noncon">>
+						<<set _sleepinterrupt to 1>>
+						
+					<<elseif _DoLHouseRoll gte _DoLHouseBar2>>
+						<<set _DoLHouseWakeEvent to "noncongroup">>
+						<<set _sleepinterrupt to 1>>
+						
+					<<elseif _DoLHouseRoll gte _DoLHouseBar3>>
+						<<set _DoLHouseWakeEvent to "generic">>
+						<<set _sleepinterrupt to 1>>
+						
+					<<elseif _DoLHouseRoll gte _DoLHouseBar4>>
+						<<set _DoLHouseWakeEvent to "con">>
+						<<set _sleepinterrupt to 1>>
+						
+					<<elseif _DoLHouseRoll gte _DoLHouseBar5>>
+						<<set _DoLHouseWakeEvent to "trait">>
+						<<set _sleepinterrupt to 1>>
+						
+					<<else>>
+						<<set _DoLHouseWakeEvent to "lucky">>
+						<<set _sleepinterrupt to 0>>
+						
+					<</if>>
+			
+				<<else>>
+					<<set _DoLHouseRoll to random(1, $DoLHouse.OwnerHouse.Master.Satisfaction+100)>>
+					
+					<<set _DoLHouseBar1 to Math.round(50*Math.log($DoLHouse.OwnerHouse.Master.Satisfaction-5))>>
+					<<set _DoLHouseBar2 to Math.round(50*Math.log($DoLHouse.OwnerHouse.Master.Satisfaction-35))>>
+					<<set _DoLHouseBar3 to Math.round(50*Math.log($DoLHouse.OwnerHouse.Master.Satisfaction-60))>>
+					<<set _DoLHouseBar4 to Math.round(50*Math.log($DoLHouse.OwnerHouse.Master.Satisfaction-145))>>
+			
+					<<if _DoLHouseRoll gte _DoLHouseBar1>>
+						<<set _DoLHouseWakeEvent to "noncongroup">>
+						<<set _sleepinterrupt to 1>>
+						
+					<<elseif _DoLHouseRoll gte _DoLHouseBar2>>
+						<<set _DoLHouseWakeEvent to "noncon">>
+						<<set _sleepinterrupt to 1>>
+						
+					<<elseif _DoLHouseRoll gte _DoLHouseBar3>>
+						<<set _DoLHouseWakeEvent to "generic">>
+						<<set _sleepinterrupt to 1>>
+						
+					<<elseif _DoLHouseRoll gte _DoLHouseBar4>>
+						<<set _DoLHouseWakeEvent to "trait">>
+						<<set _sleepinterrupt to 1>>
+						
+					<<else>>
+						<<set _DoLHouseWakeEvent to "lucky">>
+						<<set _sleepinterrupt to 0>>
+						
+					<</if>>
+				<</if>>
+			
+			<<case "work" "party">>
+				<<set _DoLHouseWakeEvent to "lucky">>
+				<<set _sleepinterrupt to 0>>
+			
+		<</switch>>

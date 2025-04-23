@@ -1,0 +1,102 @@
+{
+  "name": "DoLHouse Mod",
+  "version": "0.0.2",
+  "styleFileList": [
+  ],
+  "scriptFileList": [
+  ],
+  "tweeFileList": [
+	"DoLHouse_BeASlave/DoLHouse_slave-owner/DoLHouse_slave-owner-intro.twee",
+	"DoLHouse_BeASlave/DoLHouse_slave-owner/DoLHouse_slave-owner-house-bed.twee",
+	"DoLHouse_BeASlave/DoLHouse_slave-owner/DoLHouse_slave-owner-house-bedroom.twee",
+	"DoLHouse_BeASlave/DoLHouse_slave-owner/DoLHouse_slave-owner-house-bedroom-sneak.twee",
+	"DoLHouse_BeASlave/DoLHouse_slave-owner/DoLHouse_slave-owner-house-escape.twee",
+	"DoLHouse_BeASlave/DoLHouse_slave-owner/DoLHouse_slave-owner-house-escape2.twee",
+	"DoLHouse_BeASlave/DoLHouse_slave-owner/DoLHouse_slave-owner-house-mainroom.twee",
+	"DoLHouse_BeASlave/DoLHouse_slave-owner/DoLHouse_slave-owner-house-tieup-fight.twee",
+	"DoLHouse_BeASlave/DoLHouse_slave-owner/DoLHouse_slave-owner-house-tieup-fight-finish.twee",
+	"DoLHouse_BeASlave/DoLHouse_slave-owner/DoLHouse_slave-owner-house-sleep.twee",
+	"DoLHouse_BeASlave/DoLHouse_slave-party-events/DoLHouse_slave-party-event-dogparty.twee",
+	"DoLHouse_BeASlave/DoLHouse_slave-party-events/DoLHouse_slave-party-event-dogparty-finish.twee",
+	"DoLHouse_BeASlave/DoLHouse_slave-sleep-events/DoLHouse_slave-sleep-event-noncon.twee",
+	"DoLHouse_BeASlave/DoLHouse_slave-sleep-events/DoLHouse_slave-sleep-event-noncon-finish.twee",
+	"DoLHouse_BeASlave/DoLHouse_slave-underground/DoLHouse_slave-underground-slave-transport.twee",
+	"DoLHouse_BeASlave/DoLHouse_slave-underground/DoLHouse_slave-underground-slave-transport-fight.twee",
+	"DoLHouse_BeASlave/DoLHouse_slave-widgets.twee"
+  ],
+  "imgFileList": [
+  ],
+  "additionFile": [
+	"DoLHouse_BeASlave/DoLHouse_slave-debug/DoLHouse_slave-debug-difficulty-replace.txt",
+	"DoLHouse_BeASlave/DoLHouse_slave-debug/DoLHouse_slave-debug-teleport-cheat.txt",
+	"DoLHouse_BeASlave/DoLHouse_slave-sleep/DoLHouse_slave-sleep-outfits-replace.txt",
+	"DoLHouse_BeASlave/DoLHouse_slave-sleep/DoLHouse_slave-sleep-outfits-replace2.txt",
+	"DoLHouse_BeASlave/DoLHouse_slave-sleep/DoLHouse_slave-sleep-replace.txt",
+	"DoLHouse_BeASlave/DoLHouse_slave-town/DoLHouse_slave-town-alleyway.txt",
+	"DoLHouse_BeASlave/DoLHouse_slave-underground/DoLHouse_slave-underground-cell-replace.txt",
+	"DoLHouse_BeASlave/DoLHouse_slave-underground/DoLHouse_slave-underground-intro-replace.txt"
+  ],
+  "addonPlugin": [
+	{
+		"modName": "ReplacePatcher",
+		"addonName": "ReplacePatcherAddon",
+		"modVersion": "^1.2.1",
+		"params": {
+			"js": [
+				{
+					"fileName": "time.js",
+					"from": "if (V.locker_suspicion > 0) statChange.lockerSuspicion(-1);",
+					"to": "if (V.locker_suspicion > 0) statChange.lockerSuspicion(-1); if (V.DoLHouse !== undefined && V.undergroundbrothel !== undefined) {if (V.undergroundbrothel.active == true) {V.DoLHouse.Brothel.SellTimer--;}} if (V.DoLHouse !== undefined && V.DoLHouse.OwnerHouse.Player.Owned == 1) {V.DoLHouse.OwnerHouse.House.DaysStayed++;}"
+				},
+				{
+					"fileName": "time.js",
+					"from": "V.home_gone++;",
+					"to":"if (V.DoLHouse !== undefined && V.DoLHouse.OwnerHouse.Player.Owned == 1) {V.DoLHouse.OwnerHouse.Master.State = V.DoLHouse.OwnerHouse.Master.Schedule[Time.hour];}\nV.home_gone++;"
+				}
+			]
+		}
+	},
+	{ 
+      "modName": "TweeReplacer",
+      "addonName": "TweeReplacerAddon",
+      "modVersion": "^1.6.1",
+      "params": [
+          {
+            "passage": "Bedroom",        
+            "findString":"<<link [[Gameplay Settings|Settings]]>><<set $settingsExitPassage to \"Bedroom\">><</link>>",
+            "replaceFile": "DoLHouse_BeASlave/DoLHouse_slave-debug/DoLHouse_slave-debug-teleport-cheat.txt"
+          },
+		  {
+            "passage": "Underground Intro2",        
+            "findString":"<<set $undergroundbrothel to {",
+            "replaceFile": "DoLHouse_BeASlave/DoLHouse_slave-underground/DoLHouse_slave-underground-intro-replace.txt"
+          },
+		  {
+            "passage": "Underground Cell",        
+            "findString":"<<else>>\n\t\t<<undergroundCellOptions>>",
+            "replaceFile": "DoLHouse_BeASlave/DoLHouse_slave-underground/DoLHouse_slave-underground-cell-replace.txt"
+          },
+		  {
+            "passage": "Underground Cell",        
+            "findString":"<<set $danger to random(1, 10000)>>",
+            "replaceFile": "DoLHouse_BeASlave/DoLHouse_slave-debug/DoLHouse_slave-debug-difficulty-replace.txt"
+          },
+		  {
+            "passage": "Widgets Sleep",        
+            "findString":"<<switch $location>>",
+            "replaceFile": "DoLHouse_BeASlave/DoLHouse_slave-sleep/DoLHouse_slave-sleep-replace.txt"
+          },
+		  {
+            "passage": "Widgets Outfits",        
+            "findString":"\t\t<<case \"Pirate Bed Lie\">>",
+            "replaceFile": "DoLHouse_BeASlave/DoLHouse_slave-sleep/DoLHouse_slave-sleep-outfits-replace.txt"
+          },
+		  {
+            "passage": "Widgets Sleep",        
+            "findString":"\t\t<<case \"Pirate Bed Lie\">>",
+            "replaceFile": "DoLHouse_BeASlave/DoLHouse_slave-sleep/DoLHouse_slave-sleep-outfits-replace2.txt"
+          }
+	  ]
+    },
+  ]
+}
