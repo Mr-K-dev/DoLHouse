@@ -1,45 +1,142 @@
 :: DoLHouse Slave Widgets [widget]
 
+<<widget "DoLHouse_DebugTeleportToUnderground">>
+	<<link [[DoLHouse Debug Teleport To Underground Brothel|Underground Intro2]]>>
+		<<badEndTracking "Underground Dungeon" { reason: "DoLHouse_Debug" }>>
+		<<generate1>><<generate2>>
+	<</link>>
+<</widget>>
+
+<<widget "DoLHouse_DebugSkipToOwnerIntro">>
+	<<link [[DoLHouse Skip to Owner Intro|DoLHouse Owner Intro]]>>
+		<<DoLHouseInitVars>>
+		<<generateNPC 6 a>>
+		<<saveNPC 5 "DoLHouse_Owner">>
+		<<endevent>>
+		<<set $DoLHouse.OwnerHouse.Master.IntroPhase to 1>>
+	<</link>>
+<</widget>>
+
 <<widget "DoLHouseInitVars">>
   <<if ndef $DoLHouse>>
     <<set $DoLHouse to {
       "Brothel": {
-        "SellTimer": 1,
+        "SellTimer": 8,
         "SellCounter": 0,
         "SlaveTransportPhase": 1
       },
       "OwnerHouse": {
         "Master": {
+			"IntroPhase": 1,
 			"Pronoun": "m",
+			"DefaultDescription": "",
+			"DefaultRole": "",
 			"Traits": [],
-			"State": "home",
+			"State": "rest",
 			"Satisfaction": 0,
-			"Acceptance": 0
+			"Acceptance": 0,
+			"Schedule": [
+				"sleep",
+				"sleep",
+				"sleep",
+				"sleep",
+				"sleep",
+				"sleep",
+				"sleep",
+				"trait",
+				"work",
+				"work",
+				"work",
+				"work",
+				"work",
+				"work",
+				"work",
+				"work",
+				"work",
+				"rest",
+				"trait",
+				"trait",
+				"trait",
+				"trait",
+				"sleep",
+				"sleep",
+			]
         },
 		"House": {
-			"Location": "Commercial alleyways"
+			"DaysStayed": 0,
+			"Location": "Commercial alleyways",
+			"Type": "empty",
+			"SleepLocation": "bed"
+		},
+		"Player": {
+			"Owned": 0,
+			"TimesOwned": 0
 		}
       }
     }>>
+	
+	<<if $debug is 1>>
+		<<set $DoLHouse.Brothel.SellTimer to 1>>
+	<</if>>
   <<else>>
     <<if ndef $DoLHouse.Brothel>>
       <<set $DoLHouse.Brothel to {
-        "SellTimer": 1,
+        "SellTimer": 8,
         "SellCounter": 0,
         "SlaveTransportPhase": 1
       }>>
+	  
+		<<if $debug is 1>>
+			<<set $DoLHouse.Brothel.SellTimer to 1>>
+		<</if>>
     <</if>>
     <<if ndef $DoLHouse.OwnerHouse>>
       <<set $DoLHouse.OwnerHouse to {
         "Master": {
+			"IntroPhase": 1,
 			"Pronoun": "m",
+			"DefaultDescription": "",
+			"DefaultRole": "",
 			"Traits": [],
-			"State": "home",
+			"State": "rest",
 			"Satisfaction": 0,
-			"Acceptance": 0
+			"Acceptance": 0,
+			"Schedule": [
+				"sleep",
+				"sleep",
+				"sleep",
+				"sleep",
+				"sleep",
+				"sleep",
+				"sleep",
+				"trait",
+				"work",
+				"work",
+				"work",
+				"work",
+				"work",
+				"work",
+				"work",
+				"work",
+				"work",
+				"rest",
+				"trait",
+				"trait",
+				"trait",
+				"trait",
+				"sleep",
+				"sleep",
+			]
         },
 		"House": {
-			"Location": "Commercial alleyways"
+			"DaysStayed": 0,
+			"Location": "Commercial alleyways",
+			"Type": "empty",
+			"SleepLocation": "bed"
+		},
+		"Player": {
+			"Owned": 0,
+			"TimesOwned": 0
 		}
       }>>
     <</if>>
@@ -51,16 +148,16 @@
 	*	_args[0]	-> NPCList Slot
 	*/
 	
+	<<set $DoLHouse.OwnerHouse.Master.DefaultDescription to $NPCList[_args[0]-1].description>>
+	
+	<<set $DoLHouse.OwnerHouse.Master.DefaultRole to $NPCList[_args[0]-1].role>>
+	
 	<<set $DoLHouse.OwnerHouse.Master.Pronoun to clone($NPCList[_args[0]-1].pronoun)>>
 	
 	<<set $DoLHouse.OwnerHouse.Master.Traits to clone($NPCList[_args[0]-1].traits)>>
 <</widget>>
 
-<<widget "DoLHouse_GenerateOwnershipData">>
-	/*
-	*	
-	*/
-	
+<<widget "DoLHouse_GenerateOwnershipData">>	
 	<<if $DoLHouse.OwnerHouse.Master.Traits.includes("relaxed")>>
 		<<set $DoLHouse.OwnerHouse.House.Location to "Farm Road 1">>
 	
@@ -76,12 +173,104 @@
 	<</if>>
 <</widget>>
 
-<<widget "DoLHouse_Master">>
-	<<if $DoLHouse.OwnerHouse.Master.Pronoun is "m">>
-		Master
+<<widget "DoLHouse_GenerateLifetimeOwnerSchedule">>
+	<<set $DoLHouse.OwnerHouse.Master.Schedule to [
+		"sleep",
+		"sleep",
+		"sleep",
+		"sleep",
+		"sleep",
+		"sleep",
+		"sleep",
+		"trait",
+		"work",
+		"work",
+		"work",
+		"work",
+		"work",
+		"work",
+		"work",
+		"work",
+		"work",
+		"rest",
+		"trait",
+		"trait",
+		"trait",
+		"trait",
+		"sleep",
+		"sleep",
+	]>>
+	<<if $DoLHouse.OwnerHouse.Master.Traits.includes("relaxed")>>
+		<<set $DoLHouse.OwnerHouse.Master.Schedule[7] to "rest">>
+		<<set $DoLHouse.OwnerHouse.Master.Schedule[18] to "rest">>
+		<<set $DoLHouse.OwnerHouse.Master.Schedule[19] to "rest">>
+		<<set $DoLHouse.OwnerHouse.Master.Schedule[20] to "rest">>
+		<<set $DoLHouse.OwnerHouse.Master.Schedule[21] to "rest">>
+		
+		
+	<<elseif $DoLHouse.OwnerHouse.Master.Traits.includes("sociable")>>
+		<<set $DoLHouse.OwnerHouse.Master.Schedule[7] to "phone">>
+		<<set $DoLHouse.OwnerHouse.Master.Schedule[18] to "phone">>
+		<<set $DoLHouse.OwnerHouse.Master.Schedule[19] to "party">>
+		<<set $DoLHouse.OwnerHouse.Master.Schedule[20] to "party">>
+		<<set $DoLHouse.OwnerHouse.Master.Schedule[21] to "party">>
+	
+	<<elseif $DoLHouse.OwnerHouse.Master.Traits.includes("brooding")>>
+		<<set $DoLHouse.OwnerHouse.Master.Schedule[7] to "window">>
+		<<set $DoLHouse.OwnerHouse.Master.Schedule[18] to "window">>
+		<<set $DoLHouse.OwnerHouse.Master.Schedule[19] to "window">>
+		<<set $DoLHouse.OwnerHouse.Master.Schedule[20] to "sleep">>
+		<<set $DoLHouse.OwnerHouse.Master.Schedule[21] to "sleep">>
+		
+	<<elseif $DoLHouse.OwnerHouse.Master.Traits.includes("lecher")>>
+		<<set $DoLHouse.OwnerHouse.Master.Schedule[7] to "sex">>
+		<<set $DoLHouse.OwnerHouse.Master.Schedule[18] to "sex">>
+		<<set $DoLHouse.OwnerHouse.Master.Schedule[19] to "sex">>
+		<<set $DoLHouse.OwnerHouse.Master.Schedule[20] to "sex">>
+		<<set $DoLHouse.OwnerHouse.Master.Schedule[21] to "sex">>
+		
 	<<else>>
-		Mistress
+		<<set $DoLHouse.OwnerHouse.Master.Schedule[7] to "rest">>
+		<<set $DoLHouse.OwnerHouse.Master.Schedule[18] to "rest">>
+		<<set $DoLHouse.OwnerHouse.Master.Schedule[19] to "rest">>
+		<<set $DoLHouse.OwnerHouse.Master.Schedule[20] to "rest">>
+		<<set $DoLHouse.OwnerHouse.Master.Schedule[21] to "rest">>
+		
 	<</if>>
+	
+	<<if $DoLHouse.OwnerHouse.Master.Traits.includes("hypnotist")>>
+		<<set $DoLHouse.OwnerHouse.Master.Schedule[20] to "hypno">>
+		<<set $DoLHouse.OwnerHouse.Master.Schedule[21] to "sex">>
+	
+	<<elseif $DoLHouse.OwnerHouse.Master.Traits.includes("lazy")>>
+		<<set $DoLHouse.OwnerHouse.Master.Schedule[20] to "sleep">>
+		<<set $DoLHouse.OwnerHouse.Master.Schedule[21] to "sleep">>
+		
+	<<elseif $DoLHouse.OwnerHouse.Master.Traits.includes("energetic")>>
+		<<set $DoLHouse.OwnerHouse.Master.Schedule[20] to "sex">>
+		<<set $DoLHouse.OwnerHouse.Master.Schedule[21] to "sex">>
+	<</if>>
+	
+<</widget>>
+
+<<widget "DoLHouse_Master">>
+	<<silently>>
+		<<if $DoLHouse.OwnerHouse.Master.Pronoun is "m">>
+			<<set _DoLHouseMasterTerm to "Master">>
+		<<else>>
+			<<set _DoLHouseMasterTerm to "Mistress">>
+		<</if>>
+	<</silently>><<print _DoLHouseMasterTerm>>
+<</widget>>
+
+<<widget "DoLHouse_StartOwn">>
+	<<set $DoLHouse.OwnerHouse.Player.Owned to 1>>
+	<<set $DoLHouse.OwnerHouse.Player.TimesOwned += 1>>
+	<<set $DoLHouse.OwnerHouse.House.DaysStayed to 0>>
+<</widget>>
+
+<<widget "DoLHouse_EndOwn">>
+	<<set $DoLHouse.OwnerHouse.Player.Owned to 0>>
 <</widget>>
 
 <<widget "DoLHouse_Acceptance">>
@@ -102,44 +291,203 @@
 <</widget>>
 
 <<widget "DoLHouse_VeryVagueLocation">>
-	<<switch $DoLHouse.OwnerHouse.House.Location>>
-		<<case "Residential alleyways">>
-			somewhere in town
-		<<case "Commercial alleyways">>
-			somewhere in town
-		<<case "Industrial alleyways">>
-			somewhere in town
-		<<default>>
-			somewhere outside town
-	<</switch>>
+	<<silently>>
+		<<if $DoLHouse.OwnerHouse.House.Location is "Farm Road 1">>
+			<<set _DoLHouseLocationPrint to "somewhere outside town">>
+		<<else>>
+			<<set _DoLHouseLocationPrint to "somewhere in town">>
+		<</if>>
+	<</silently>><<print _DoLHouseLocationPrint>>	
 <</widget>>
 
 <<widget "DoLHouse_VagueLocation">>
-	<<switch $DoLHouse.OwnerHouse.House.Location>>
-		<<case "Residential alleyways">>
-			somewhere in town where children live
-		<<case "Commercial alleyways">>
-			somewhere in town that is busy at night
-		<<case "Industrial alleyways">>
-			somewhere in town with heavy machinery
-		<<default>>
-			somewhere with lots of animals
-	<</switch>>
+	<<silently>>
+		<<switch $DoLHouse.OwnerHouse.House.Location>>
+			<<case "Residential alleyways">>
+				<<set _DoLHouseLocationPrint to "somewhere in town where children live">>
+			<<case "Commercial alleyways">>
+				<<set _DoLHouseLocationPrint to "somewhere in town that is busy at night">>
+			<<case "Industrial alleyways">>
+				<<set _DoLHouseLocationPrint to "somewhere in town with heavy machinery">>
+			<<default>>
+				<<set _DoLHouseLocationPrint to "somewhere with lots of animals">>
+		<</switch>>
+	<</silently>><<print _DoLHouseLocationPrint>>
 <</widget>>
 
 <<widget "DoLHouse_QuickLocation">>
-	<<switch $DoLHouse.OwnerHouse.House.Location>>
-		<<case "Residential alleyways">>
-			somewhere in the residential alleyways
-		<<case "Commercial alleyways">>
-			somewhere in the commercial alleyways
-		<<case "Industrial alleyways">>
-			somewhere in the industrial alleyways
-		<<default>>
-			somewhere in the town outskirts
-	<</switch>>
+	<<silently>>
+		<<switch $DoLHouse.OwnerHouse.House.Location>>
+			<<case "Residential alleyways">>
+				<<set _DoLHouseLocationPrint to "somewhere in the residential district">>
+			<<case "Commercial alleyways">>
+				<<set _DoLHouseLocationPrint to "somewhere in the commercial district">>
+			<<case "Industrial alleyways">>
+				<<set _DoLHouseLocationPrint to "somewhere in the industrial district">>
+			<<default>>
+				<<set _DoLHouseLocationPrint to "somewhere in the town outskirts">>
+		<</switch>>
+	<</silently>><<print _DoLHouseLocationPrint>>
 <</widget>>
 
 <<widget "DoLHouse_LocationGuess">>
-	<<DoLHouse_VagueLocation>>
+	<<if $DoLHouse.OwnerHouse.House.DaysStayed gte 7>>
+		<<DoLHouse_QuickLocation>>
+	<<elseif $DoLHouse.OwnerHouse.House.DaysStayed gte 4>>
+		<<DoLHouse_VagueLocation>>
+	<<else>>
+		<<DoLHouse_VeryVagueLocation>>
+	<</if>>
 <</widget>>
+
+<<widget "DoLHouse_ChangeMasterSatisfaction">>
+	<<set $DoLHouse.OwnerHouse.Master.Satisfaction += _args[0]>>
+	
+	<<if $DoLHouse.OwnerHouse.Master.Satisfaction gt 100>>
+		<<set $DoLHouse.OwnerHouse.Master.Satisfaction to 100>>
+		
+	<<elseif $DoLHouse.OwnerHouse.Master.Satisfaction lt -100>>
+		<<set $DoLHouse.OwnerHouse.Master.Satisfaction to -100>>
+	<</if>>
+<</widget>>
+
+<<widget "DoLHouse_ChangeMasterAcceptance">>
+	<<set $DoLHouse.OwnerHouse.Master.Acceptance += _args[0]>>
+	
+	<<if $DoLHouse.OwnerHouse.Master.Acceptance gt 100>>
+		<<set $DoLHouse.OwnerHouse.Master.Acceptance to 100>>
+		
+	<<elseif $DoLHouse.OwnerHouse.Master.Acceptance lt -100>>
+		<<set $DoLHouse.OwnerHouse.Master.Acceptance to -100>>
+	<</if>>
+<</widget>>
+
+
+<<widget "DoLHouse_MasterOpinion">>
+	/*
+	*	If PC likes Master:
+	*		(green)		Master likes you!
+	*		(teal)		Master likes you.
+	*		(lblue)		Master has no strong opinion of you.
+	*		(blue) 		Master dislikes you.
+	*		(purple)	Master hates you.
+	*		(pink)		Master despises you.
+	*		(red)		Master doesn't care about you.
+	*		
+	*	If PC is indifferent:
+	*		(red)		Master wants to show off his toy.
+	*		(purple)	Master sees you as a toy.
+	*		(lblue)		Master likes you.
+	*		(green) 	Master feels nothing towards you.
+	*		(lblue)		Master finds you annoying.
+	*		(purple)	Master finds you irritating.
+	*		(red)		Master wants to hurt you.
+	*
+	*/
+	
+	<<if $DoLHouse.OwnerHouse.Master.Acceptance gte 50>>
+		<<if $DoLHouse.OwnerHouse.Master.Satisfaction gte 90>>
+			<span class="green"><<DoLHouse_Master>> likes you!</span>
+			
+		<<elseif $DoLHouse.OwnerHouse.Master.Satisfaction gte 50>>
+			<span class="teal"><<DoLHouse_Master>> likes you.</span>
+			
+		<<elseif $DoLHouse.OwnerHouse.Master.Satisfaction gte 25>>
+			<span class="lblue"><<DoLHouse_Master>> has no strong opinion of you.</span>
+			
+		<<elseif $DoLHouse.OwnerHouse.Master.Satisfaction gte -25>>
+			<span class="blue"><<DoLHouse_Master>> dislikes you.</span>
+		
+		<<elseif $DoLHouse.OwnerHouse.Master.Satisfaction gte -50>>
+			<span class="purple"><<DoLHouse_Master>> hates you.</span>
+			
+		<<elseif $DoLHouse.OwnerHouse.Master.Satisfaction gte -90>>
+			<span class="pink"><<DoLHouse_Master>> despises you.</span>
+			
+		<<else>>
+			<span class="red"><<DoLHouse_Master>> doesn't care about you.</span>
+		<</if>>
+		
+	<<else>>
+		<<if $DoLHouse.OwnerHouse.Master.Satisfaction gte 90>>
+			<span class="red"><<DoLHouse_Master>> wants to show off his toy.</span>
+			
+		<<elseif $DoLHouse.OwnerHouse.Master.Satisfaction gte 50>>
+			<span class="purple"><<DoLHouse_Master>> sees you as a toy.</span>
+			
+		<<elseif $DoLHouse.OwnerHouse.Master.Satisfaction gte 25>>
+			<span class="lblue"><<DoLHouse_Master>> likes you.</span>
+			
+		<<elseif $DoLHouse.OwnerHouse.Master.Satisfaction gte -25>>
+			<span class="green"><<DoLHouse_Master>> feels nothing towards you.</span>
+		
+		<<elseif $DoLHouse.OwnerHouse.Master.Satisfaction gte -50>>
+			<span class="lblue"><<DoLHouse_Master>> finds you annoying.</span>
+			
+		<<elseif $DoLHouse.OwnerHouse.Master.Satisfaction gte -90>>
+			<span class="purple"><<DoLHouse_Master>> finds you irritating.</span>
+			
+		<<else>>
+			<span class="red"><<DoLHouse_Master>> wants to hurt you.</span>
+		<</if>>
+		
+	<</if>>
+<</widget>>
+
+<<widget "DoLHouse_MasterPresenceText">>
+	<<if ["work", "party"].includes($DoLHouse.OwnerHouse.Master.State)>>
+		<<DoLHouse_Acceptance 1>> <<DoLHouse_Master>> isn't here.
+	<<else>>
+		<<DoLHouse_Acceptance 1>> <<DoLHouse_Master>> is here.
+		
+		<<loadNPC 0 "DoLHouse_Owner">>
+	<</if>>
+<</widget>>
+
+<<widget "DoLHouse_QuickBedWidget">>
+	<<set _bed to Furniture.get('bed')>>
+	<<bedicon "doublebeddeluxe">>
+	
+	<<switch _args[0]>>
+		<<case "twoallow">>
+			<<link [[Sleep here with <<DoLHouse_Acceptance 0>> <<DoLHouse_Master>>|DoLHouse Owner House Bed]]>>
+				<<undressSleep "bed">>
+			<</link>>
+		
+		<<case "allow">>
+			<<link [[Sleep here|DoLHouse Owner House Bed]]>>
+					<<undressSleep "bed">>
+			<</link>>
+		
+		<<case "twobanned">>
+			<span class="red">
+				<<link [[Sleep here with <<DoLHouse_Acceptance 0>> <<DoLHouse_Master>> anyway|DoLHouse Owner House Bed]]>>
+					<<undressSleep "bed">>
+				<</link>>
+			</span>
+		<<default>>
+			<span class="red">
+				<<link [[Sleep here anyway|DoLHouse Owner House Bed]]>>
+					<<undressSleep "bed">>
+				<</link>>
+			</span>
+	<</switch>>
+<</widget>>
+
+<<widget "DoLHouse_TemporaryMasterNPCLabel">>
+	<<set $NPCList[_args[0]-1].description to "">>
+	
+	<<if $DoLHouse.OwnerHouse.Master.Pronoun is "m">>
+		<<set $NPCList[_args[0]-1].fullDescription to "Master">>
+		<<set $NPCList[_args[0]-1].role to "Master">>
+	<<else>>
+		<<set $NPCList[_args[0]-1].fullDescription to "Mistress">>
+		<<set $NPCList[_args[0]-1].role to "Mistress">>
+	<</if>>
+<</widget>>
+
+<<widget "DoLHouse_ResetMasterNPCLabel">>
+	<<set $NPCList[_args[0]-1].description to $DoLHouse.OwnerHouse.Master.DefaultDescription>>
+	<<set $NPCList[_args[0]-1].role to $DoLHouse.OwnerHouse.Master.DefaultRole>>
+<</widget>>
+

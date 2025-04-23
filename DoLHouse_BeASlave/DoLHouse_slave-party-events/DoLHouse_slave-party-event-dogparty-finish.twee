@@ -1,0 +1,48 @@
+:: Dog Party Finish
+<<effects>>
+<<if $enemyhealth lte 0>>
+	<<beastwound>>
+	<<if $combatTrain.length gt 0>>
+		The $NPCList[0].type recoils in pain and fear, but another beast is eager for a go.
+		<<combatTrainAdvance>>
+		<br><br>
+		<<link [[Next|Dog Party]]>><</link>>
+	<<else>>
+		The $NPCList[_na].type recoils in pain and fear.
+		<br><br>
+		<<link [[Next|Dog Party Finish]]>><<set $finish to 1>><</link>>
+	<</if>>
+<<elseif $enemyarousal gte $enemyarousalmax>>
+	<<beastejaculation>>
+	<<if $combatTrain.length gt 0>>
+		Satisfied, the $NPCList[0].type moves and another beast takes its turn.
+		<<combatTrainAdvance>>
+		<br><br>
+		<<link [[Next|Dog Party]]>><</link>>
+	<<else>>
+		Satisfied, the $NPCList[0].type moves away from you.
+		<br><br>
+		<<link [[Next|Dog Party Finish]]>><<set $finish to 1>><</link>>
+	<</if>>
+<<elseif $finish is 1>>
+	<<if $enemywounded is 1 and $enemyejaculated is 0>>
+		The $NPCList[_na].type whimpers and flees.
+	<<elseif $enemywounded is 0 and $enemyejaculated is 1>>
+		The $NPCList[_na].type leaves you lying on the cold floor.
+	<<elseif $enemywounded gte 2 and $enemyejaculated is 0>>
+		Feeling that you're more trouble than you're worth, the animals flee.
+	<<elseif $enemywounded is 0 and $enemyejaculated gte 2>>
+		The animals leave you spent and shivering on the cold floor.
+	<<elseif $enemywounded gte 1 and $enemyejaculated gte 1>>
+		The animals leave you spent and shivering on the cold floor.
+	<</if>>
+	<br><br>
+	<<tearful>> you gather yourself.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	
+	(The show ends and you are brought back to your owner's house)
+	<br>
+	<<link [[Next|DoLHouse Slave Owner House Bedroom]]>><</link>>
+<</if>>

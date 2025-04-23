@@ -1,0 +1,117 @@
+:: DoLHouse Slave Owner House Exit Sneak
+<<effects>>
+
+<<skulduggerycheck>>
+<br><br>
+
+<<if $skulduggerysuccess is 1>>
+	You successfully pick the lock. The door opens to the outside.
+	
+	<<if $skulduggery lte ($skulduggerydifficulty + 100)>>
+		<<skulduggeryskilluse>>
+	<<else>>
+		<span class="blue">That was too easy. You didn't learn anything.</span>
+		<br><br>
+	<</if>>
+	
+	You go outside and find yourself <<DoLHouse_QuickLocation>>.
+
+	<br><br>
+	<<link [[Next|$DoLHouse.OwnerHouse.House.Location]]>>
+		<<DoLHouse_EndOwn>>
+	<</link>>
+	
+<<else>>
+	You try to pick the lock, but you fumble and drop the lockpick.
+	<br>
+	You wince as it <span class="red">clatters</span> on the floor.
+	<br><br>
+	
+	<<switch $DoLHouse.OwnerHouse.Master.State>>
+		<<case "sleep">>
+			<<loadNPC 0 "DoLHouse_Owner">>
+			<<DoLHouse_TemporaryMasterNPCLabel 1>>
+			
+			The sound wakes up <<DoLHouse_Acceptance 0>> <<person1>><<person>>.
+			<br><br>
+			<<person1>><<He>> storms into the room and (he says something then throws you onto the bed)<br>
+			(combat start)
+			
+			<br><br>
+			<<link [[Struggle|DoLHouse Slave Sleep Rape]]>>
+				<<set $molestationstart to 1>>
+				<<set $enemyanger to 100>>
+			<</link>>
+			<br>
+			<<link [[Let it happen|DoLHouse Slave Sleep Rape]]>>
+				<<set $molestationstart to 1>>
+			<</link>>
+		
+		<<case "phone">>
+			<<loadNPC 0 "DoLHouse_Owner">>
+			<<DoLHouse_TemporaryMasterNPCLabel 1>>
+			
+			You hear <<person1>><<person>> stop talking.
+			<<person1>><<person>> dashes up to you and slaps you in the face. <<pain 5>><<gpain>>
+			<br><br>
+			(he says something then throws you onto the bed)<br>
+			(combat start)
+			
+			<br><br>
+			<<link [[Struggle|DoLHouse Slave Sleep Rape]]>>
+				<<set $molestationstart to 1>>
+				<<set $enemyanger to 100>>
+			<</link>>
+			<br>
+			<<link [[Let it happen|DoLHouse Slave Sleep Rape]]>>
+				<<set $molestationstart to 1>>
+			<</link>>
+		
+		<<case "window">>
+			<<loadNPC 0 "DoLHouse_Owner">>
+			<<DoLHouse_TemporaryMasterNPCLabel 1>>
+			
+			<<person1>><<person>> dashes up to you and slaps you in the face. <<pain 5>><<gpain>>
+			<br><br>
+			(he says something then throws you onto the bed)<br>
+			(combat start)
+			
+			<br><br>
+			<<link [[Struggle|DoLHouse Slave Sleep Rape]]>>
+				<<set $molestationstart to 1>>
+				<<set $enemyanger to 100>>
+			<</link>>
+			<br>
+			<<link [[Let it happen|DoLHouse Slave Sleep Rape]]>>
+				<<set $molestationstart to 1>>
+			<</link>>
+			
+		<<case "rest">>
+			<<loadNPC 0 "DoLHouse_Owner">>
+			<<DoLHouse_TemporaryMasterNPCLabel 1>>
+			
+			<<person1>><<person>> dashes up to you and slaps you in the face. <<pain 5>><<gpain>>
+			<br><br>
+			(he says something then throws you onto the bed)<br>
+			(combat start)
+			
+			<br><br>
+			<<link [[Struggle|DoLHouse Slave Sleep Rape]]>>
+				<<set $molestationstart to 1>>
+				<<set $enemyanger to 100>>
+			<</link>>
+			<br>
+			<<link [[Let it happen|DoLHouse Slave Sleep Rape]]>>
+				<<set $molestationstart to 1>>
+			<</link>>
+			
+		<<default>>
+			<span class="green">Thankfully, it seems no one heard.</span>
+			
+			<br><br>
+			<<link [[Next|DoLHouse Slave Owner House Bedroom]]>>
+			<</link>>
+			
+	<</switch>>
+
+<</if>>

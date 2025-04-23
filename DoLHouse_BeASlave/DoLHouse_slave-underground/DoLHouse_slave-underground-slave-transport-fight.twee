@@ -1,0 +1,45 @@
+:: DoLHouse Underground Brothel Slave Transport Fight
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	starting text
+	<br><br>
+	<<controlloss>>
+	<br>
+	<<violence 10>>
+	<<neutral 1>>
+	<<set $enemyno to 1>>
+	<<set $enemynomax to 1>>
+	<<maninit>>
+	<<set $novaginal to 1>>
+	<<set $noanal to 1>>
+	<<set $nopenile to 1>>
+	<<set $enemyanger to 200>>
+	<<set $enemyarousal to 0>>
+<</if>>
+<br><br>
+
+<<effects>>
+<<effectsman>>
+<<alarmstate>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+<<if _combatend>>
+	<span id="next">
+		<<link [[Next|DoLHouse Underground Brothel Slave Transport]]>>
+			<<set $DoLHouse.Brothel.SlaveTransportPhase to 0>>
+		<</link>>
+	</span><<nexttext>>
+<<elseif $pain gte 100 and $willpowerpain is 0>>
+	<span id="next">
+		<<link [[Next|DoLHouse Underground Brothel Slave Transport]]>>
+			<<set $DoLHouse.Brothel.SlaveTransportPhase to 0>>
+		<</link>>
+	</span><<nexttext>>
+<<else>>
+	<span id="next">
+		<<link [[Next|DoLHouse Underground Brothel Slave Transport Fight]]>>
+		<</link>>
+	</span><<nexttext>>
+<</if>>

@@ -1,0 +1,30 @@
+:: Dog Party
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<beastCombatInit>>
+	<<beastTrainGenerate>>
+		text
+		<br>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<beastCombatInit>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<br>
+<<beast $enemyno>>
+<br><br>
+<<audience>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Dog Party Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Dog Party]]>><</link>></span><<nexttext>>
+<</if>>
+
